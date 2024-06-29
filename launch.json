@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Python: Behave",
+        "type": "python",
+        "request": "launch",
+        "program": "/home/eduardo/Documents/Tese/behave_load/features/steps/main.feature",
+        "args": [
+          "--no-capture"
+        ],
+        "console": "integratedTerminal",
+        "justMyCode": false
+      }
+    ]
+  }
+  

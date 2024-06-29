@@ -1,0 +1,8 @@
+{
+    "feature_names" : ["Pregnancies","Glucose","BloodPressure","SkinThickness","Insulin","BMI","DiabetesPedigreeFunction","Age"],
+    "feature_types" : ["float64", "float64", "float64", "float64", "float64", "float64", "float64", "float64"],
+    "target_names" : ["Outcome"],
+    "target_types" : ["int64"]
+
+    
+}

@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Python: Behave",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "/home/eduardo/.local/bin/behave",
+        "args": [
+          "--no-capture"
+        ],
+        "console": "integratedTerminal",
+        "justMyCode": false
+      }
+    ]
+  }
+  

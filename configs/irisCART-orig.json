@@ -1,0 +1,6 @@
+{
+    "feature_names" : ["sepal_length","sepal_width","petal_length","petal_width"],
+    "feature_types" : [ "float64" ,  "float64" ,  "float64" ,  "float64" ],
+    "target_names" : ["species"],
+    "target_types" : [ "object"]
+}
