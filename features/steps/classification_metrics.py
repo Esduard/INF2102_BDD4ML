@@ -8,7 +8,7 @@ from behave import given, when, then, use_step_matcher
 use_step_matcher("re")
 
 #recall
-@then('the model identifies (100|[1-9]?\\d) percent of the correct cases of(?: all classes with (a macro average|a weighted average)| class \'([\\w\\s-]+)\')?')
+@then('the model identifies (100|[1-9]?\d) percent of the correct cases of(?: all classes(?: with (a macro average|a weighted average))?| class \'([\w\s-]+)\')?')
 def step_impl(context, percent, average_type=None, class_name=None):
     # percent: string capturing the percentage match
     # average_type: captures 'a macro average' or 'a weighted average' if provided
@@ -19,7 +19,7 @@ def step_impl(context, percent, average_type=None, class_name=None):
 
 #precision
 #The model classifies positives of ... correctly <number> percent of the time
-@then('the model classifies positives of(?: all classes with (a macro average|a weighted average)| class \'([\\w\\s-]+)\')? correctly (100|[1-9]?\\d) percent of the time')
+@then('the model correctly classifies positives of(?: all classes(?: with (a macro average|a weighted average))?| class \'([\w\s-]+)\')? (100|[1-9]?\d) percent of the time')
 def step_impl(context,average_type=None,class_name=None, percent=None):
     # percent: string capturing the percentage match
     # average_type: captures 'a macro average' or 'a weighted average' if provided
@@ -29,7 +29,7 @@ def step_impl(context,average_type=None,class_name=None, percent=None):
 
 #accuracy
 #The model classifies of ... correctly <number> percent of the time
-@then('the model classifies(?: all classes| class \'([\\w\\s-]+)\')? correctly (100|[1-9]?\\d) percent of the time')
+@then('the model correctly classifies(?: all classes| class \'([\\w\\s-]+)\')? (100|[1-9]?\\d) percent of the time')
 def step_impl(context,class_name=None, percent=None):
     # percent: string capturing the percentage match
     # average_type: captures 'a macro average' or 'a weighted average' if provided
@@ -38,7 +38,7 @@ def step_impl(context,class_name=None, percent=None):
     classification_evaluate(context.results_dict,percent,'accuracy',None,class_name)
 
 #explicit
-@then('the model will reach (100|[1-9]?\\d) percent (recall|f1_score|precision|support|accuracy)(?: on (a macro average|a weighted average|class \'([\\w\\s-]+)\'))?')
+@then('the model will reach a value of (\d+(?:\.\d+)?) on the metric (recall|f1_score|precision|accuracy)(?: on (a macro average|a weighted average|class \'([\\w\\s-]+)\'))?')
 def step_impl(context, percent, metric, average_type=None, class_name=None):
     # percent: the percentage value captured
     # metric: the metric type (recall, f1_score, precision, support, accuracy)
@@ -63,7 +63,6 @@ def classification_evaluate(results_dict,percent,metric,average_type,class_name)
         'recall': 'recall',
         'f1_score': 'f1-score',
         'precision': 'precision',
-        'support': 'support',
         'accuracy': 'accuracy'
     }
 

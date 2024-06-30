@@ -7,24 +7,29 @@ import os
 
 
 class ModelLoader(ABC):
-    """abstract class that loads a model"""
-
-    @abstractmethod
-    def predict(self):
-        pass
-
-
-class ModelLoaderFromEndpoint(ModelLoader):
-    """class that establishes a connection to an endpoint
-    and runs inferences from here
-    """
+    """Abstract class that loads a model"""
 
     def __init__(self, model_name):
-        self.model_name = model_name
+        self.model_path = None
+        self._model = None
+        self._name = model_name
 
-    def predict(self):
-        return self.model_name
-    
+    @abstractmethod
+    def load_model(self):
+        """Load a model from a specified source."""
+        pass
+
+    @abstractmethod
+    def predict(self, features):
+        """Make a prediction based on the provided features."""
+        pass
+
+    def get_name(self):
+        return self._name
+
+    def get_model(self):
+        return self._model
+
 
 class ModelLoaderFromFile(ModelLoader):
     """class that loads a model from a file"""
