@@ -12,9 +12,7 @@ class ModelConfigLoader():
             config_dict =  self.load_features_from_config(json_name)
 
             self.feature_names   = config_dict["feature_names"]
-            self.feature_types   = config_dict["feature_types"]
             self.target_names    = config_dict["target_names"]
-            self.target_types    = config_dict["target_types"]
         except Exception as e:
             raise ValueError("Error loading model configurations: " + str(e))
         
@@ -28,12 +26,7 @@ class ModelConfigLoader():
     def get_feature_names(self):
         return self.feature_names
 
-    def get_feature_types(self):
-        return self.feature_types
 
     def get_target_names(self):
         return self.target_names
-
-    def get_target_types(self):
-        return self.target_types
         

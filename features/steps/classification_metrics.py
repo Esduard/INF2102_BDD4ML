@@ -45,7 +45,7 @@ def step_impl(context, percent, metric, average_type=None, class_name=None):
     # average_type: captures 'a macro average' or 'a weighted average' if provided
     # class_name: captures the class name if provided
     
-    print(f"Percentage: {percent}, Metric: {metric}, Average Type : {average_type}{average_type if average_type else 'N/A'}, Class Name: {class_name if class_name else 'N/A'}")
+    print(f"Percentage: {percent}, Metric: {metric}, Average Type : {average_type if average_type else 'N/A'}, Class Name: {class_name if class_name else 'N/A'}")
 
     if average_type:
         if 'class' in average_type:
@@ -58,18 +58,23 @@ def classification_evaluate(results_dict,percent,metric,average_type,class_name)
     # Print statement to display the parameters. Conditionally display 'N/A' if average_type or class_name are None
     print(f"Percentage: {percent}, Metric: {metric}, Average Type: {average_type if average_type else 'N/A'}, Class Name: {class_name if class_name else 'N/A'}")
 
+    # Mapping for replacement
+    mapping = {'0': 'False', '1': 'True'}
+
+    # Define the required set of keys
+    required_keys = {'0', '1', 'accuracy', 'macro avg', 'weighted avg'}
+
+    # Create a new dictionary with modified keys
+    if set(results_dict.keys()) == required_keys:
+        # Perform the replacement if the condition is met
+        results_dict = {mapping.get(k, k): v for k, v in results_dict.items()}
+
     # Dictionary to map the metric parameters from function to those used in results_dict
     conversion_metric = {
         'recall': 'recall',
         'f1_score': 'f1-score',
         'precision': 'precision',
         'accuracy': 'accuracy'
-    }
-
-    # Dictionary to convert average_type to the format used in results_dict
-    conversion_condition = {
-        'a macro average': 'macro avg',
-        'a weighted average': 'weighted avg'
     }
 
     # Convert the metric using the dictionary
@@ -80,6 +85,12 @@ def classification_evaluate(results_dict,percent,metric,average_type,class_name)
     if metric == 'accuracy':
         assert results_dict[metric] >= float(percent) / 100, f"Accuracy is below {percent}%"
         return
+    
+    # Dictionary to convert average_type to the format used in results_dict
+    conversion_condition = {
+        'a macro average': 'macro avg',
+        'a weighted average': 'weighted avg'
+    }
 
     # Determine the key in the results dictionary based on average_type or class_name
     condition_key = None
@@ -90,7 +101,9 @@ def classification_evaluate(results_dict,percent,metric,average_type,class_name)
 
     # Assert the condition based on the extracted key and metric
     if condition_key:
-        assert results_dict[condition_key][metric] >= float(percent) / 100, f"{condition_key} {metric} is below {percent}%"
+        current = results_dict[condition_key][metric]
+        percentage = float(percent) / 100
+        assert current >= percentage, f"{condition_key} {metric} is {current}%, below {percent}%"
     else:
         # If no specific condition is given, fall back to 'macro avg' as a default
-        assert results_dict['macro avg'][metric] >= float(percent) / 100, f"Macro average {metric} is below {percent}%"
+        assert results_dict['macro avg'][metric] >= float(percent) / 100, f"Macro average {metric} is {results_dict['macro avg'][metric]}%, below {percent}%"

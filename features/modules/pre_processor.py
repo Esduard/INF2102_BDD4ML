@@ -11,10 +11,11 @@ class PreProcessor(ABC):
         pass
     
 class BasePreProcessor(PreProcessor):
-    def __init__(self,features, label):
+    def __init__(self,features, label,model_scaler = None):
         print("Setting Up BasePreProcessor")
         self.features = features
         self.label = label
+        self.model_scaler = model_scaler
 
     def __separate_feature_and_label(self,dataset):
         dataframe = dataset
@@ -23,6 +24,13 @@ class BasePreProcessor(PreProcessor):
         y = dataframe[self.label].values
         return x,y
 
-    def preprocess(self,dataset):
-        X_test,y_test = self.__separate_feature_and_label(dataset)
+    def preprocess(self, dataset):
+        X_test, y_test = self.__separate_feature_and_label(dataset)
+
+        # Apply scaling if a model_scaler is provided
+        if self.model_scaler.get_scaler():
+            X_test = self.model_scaler.apply_scaling(X_test)
+        else:
+            print("No model_scaler provided, proceeding without scaling.")
+
         return X_test, y_test

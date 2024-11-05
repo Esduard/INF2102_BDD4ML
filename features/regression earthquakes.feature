@@ -1,6 +1,7 @@
 Feature: testing a regression model performance 
     Scenario: run a performance test on a regression model
-        Given We obtain a regression model from the file earthquakeKNNRegressor-orig.pkl
+        Given We obtain a model from the file earthquakeKNNRegressor-orig
+        And We evaluate the test as a regression problem
         And We obtain test data from the file test_data_earthquake.csv
         When We process the data
 

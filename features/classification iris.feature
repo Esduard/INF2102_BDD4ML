@@ -1,6 +1,7 @@
 Feature: testing a classification model performance 
     Scenario: run a performance test on a classification model
-        Given We obtain a classification model from the file irisCART-orig.pkl
+        Given We obtain a model from the file irisCART-orig
+        And We evaluate the test as a classification problem
         And We obtain test data from the file test_data_iris.csv
         When We process the data
 

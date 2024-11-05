@@ -1,0 +1,35 @@
+{
+    "feature_names": [
+        "hh_total",
+        "hh_de_deslocamento",
+        "hh_de_preparo",
+        "hh_de_servico",
+        "hh_de_supervisao",
+        "hh_de_outros",
+        "hh_de_laboratorio",
+        "hh_de_PREVENTIVA PERIÓDICA",
+        "hh_de_outros_de_denominacao_tam",
+        "hh_de_INSPEÇÃO PERIÓDICA",
+        "hh_de_COMISSIONAMENTO",
+        "hh_de_REPARO DE DEFEITO",
+        "hh_de_Análise cromatográfica óleo",
+        "hh_de_REPARO DEFEITO",
+        "hh_de_Análise físico-química de óleo",
+        "hh_de_Corrente de fuga",
+        "hh_de_Termovisionamento",
+        "hh_de_Avaliação qualitativa",
+        "weather_code",
+        "temperature_2m_max",
+        "temperature_2m_min",
+        "apparent_temperature_max",
+        "apparent_temperature_min",
+        "precipitation_sum",
+        "precipitation_hours",
+        "wind_speed_10m_max",
+        "wind_gusts_10m_max",
+        "et0_fao_evapotranspiration"
+    ],
+    "target_names": [
+        "acidente"
+    ]
+}

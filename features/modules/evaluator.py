@@ -61,9 +61,9 @@ class ClassificationEvaluator(Evaluator):
         #print("\nConfusion Matrix:")
         #cm = confusion_matrix(y_test, predictions)
         #print(cm)
-        
-        #print("\nClassification Report:")
+        print("\nClassification Report:")
+
         cr_dict = classification_report(y_test, predictions, output_dict=True)
         self.results = cr_dict
-        #print(cr_dict)
+        print(cr_dict)
         return cr_dict

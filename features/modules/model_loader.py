@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import sys
 import joblib
 import os
@@ -34,11 +35,58 @@ class ModelLoader(ABC):
 class ModelLoaderFromFile(ModelLoader):
     """class that loads a model from a file"""
 
+    def get_feature_names_and_types(self,model):
+        # Check if the model is a pipeline
+        if hasattr(model, 'steps'):
+            # Get the first step of the pipeline
+            first_step = model.steps[0][1]
+        else:
+            # The model itself is the estimator
+            first_step = model
+
+        # Initialize lists to store feature names and types
+        output_feature_names = []
+        output_feature_types = []
+
+        # Check if the first step has the get_feature_names_out method
+        if hasattr(first_step, 'get_feature_names_out'):
+            output_feature_names = first_step.get_feature_names_out()
+        elif hasattr(first_step, 'feature_names_in_'):
+            output_feature_names = first_step.feature_names_in_
+        else:
+            print("could not find feature names")
+
+        # Determine the types of the features
+        if hasattr(first_step, 'transformers'):
+            # If the first step is a ColumnTransformer
+            for name, transformer, columns in first_step.transformers:
+                for col in columns:
+                    if isinstance(transformer, (StandardScaler, OneHotEncoder)):
+                        output_feature_types.append(type(transformer).__name__)
+                    else:
+                        output_feature_types.append('unknown')
+        else:
+            # For other types of estimators
+            output_feature_types = ['unknown' for _ in output_feature_names]
+
+        return output_feature_names, output_feature_types
+
     def __init__(self, model_name):
         # Save the path to the model file
         self.model_path = os.path.join('estimators',model_name)
         # Load the model from the specified file
         self._model = self.load_model()
+
+        print("model type")
+        print(type(self._model))
+
+        try:
+            print("get_feature_names_out")
+            output_feature_names, output_feature_types = self.get_feature_names_and_types(self._model)
+            print("Feature names:", output_feature_names)
+            print("Feature types:", output_feature_types)
+        except Exception as e:
+            print("problem with feature_names_in_:", str(e))
 
         self._name = model_name
 

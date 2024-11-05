@@ -1,0 +1,16 @@
+{
+    "feature_names" : [
+        "distance",
+        "dwt",
+        "harbor_time",
+        "fo_per_distance",
+        "PETROLEIRO",
+        "is_platform",
+        "Cabotagem",
+        "Exportação",
+        "Importação",
+        "Internacional",
+        "distance_restricted"
+    ],
+    "target_names" : ["co2_with_exclusions"]
+}
