@@ -8,8 +8,8 @@ from behave import given, when, then, use_step_matcher
 use_step_matcher("re")
 
 #recall
-@then('the model identifies (100|[1-9]?\d) percent of the correct cases of(?: all classes(?: with (a macro average|a weighted average))?| class \'([\w\s-]+)\')?')
-def step_impl(context, percent, average_type=None, class_name=None):
+@then('the model correctly classifies real positives of(?: all classes(?: with (a macro average|a weighted average))?| class \'([\w\s-]+)\')? (100|[1-9]?\d) percent of the time')
+def step_impl(context,average_type=None,class_name=None, percent=None):
     # percent: string capturing the percentage match
     # average_type: captures 'a macro average' or 'a weighted average' if provided
     # class_name: captures the class name if provided
@@ -19,7 +19,7 @@ def step_impl(context, percent, average_type=None, class_name=None):
 
 #precision
 #The model classifies positives of ... correctly <number> percent of the time
-@then('the model correctly classifies positives of(?: all classes(?: with (a macro average|a weighted average))?| class \'([\w\s-]+)\')? (100|[1-9]?\d) percent of the time')
+@then('the model correctly classifies predicted positives of(?: all classes(?: with (a macro average|a weighted average))?| class \'([\w\s-]+)\')? (100|[1-9]?\d) percent of the time')
 def step_impl(context,average_type=None,class_name=None, percent=None):
     # percent: string capturing the percentage match
     # average_type: captures 'a macro average' or 'a weighted average' if provided
@@ -29,7 +29,7 @@ def step_impl(context,average_type=None,class_name=None, percent=None):
 
 #accuracy
 #The model classifies of ... correctly <number> percent of the time
-@then('the model correctly classifies(?: all classes| class \'([\\w\\s-]+)\')? (100|[1-9]?\\d) percent of the time')
+@then('the model correctly classifies(?: all classes| the class \'([\\w\\s-]+)\')? (100|[1-9]?\\d) percent of the time')
 def step_impl(context,class_name=None, percent=None):
     # percent: string capturing the percentage match
     # average_type: captures 'a macro average' or 'a weighted average' if provided

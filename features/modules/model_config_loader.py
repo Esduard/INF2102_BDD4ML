@@ -19,7 +19,7 @@ class ModelConfigLoader():
     def load_features_from_config(self, config_filename):
         # print the current execution path
         full_path = os.path.join('model_configs', config_filename)
-        with open(full_path, 'r') as file:
+        with open(full_path, 'r',encoding='utf-8') as file:
             config = json.load(file)
             return config
 

@@ -53,6 +53,10 @@ O usuário deverá escrever as cláusulas em um arquivo ".feature" na ordem suge
 
 ![Diagrama De Execução](diagram/Execution_flow.drawio.png)
 
+## Como Rodar o framework
+
+Após preencher o arquivo ".feature" execute o comando "behave" na linha de comando
+
 
 ## 1. Cláusulas BDD - Given
 
@@ -109,7 +113,7 @@ Given We obtain test data from the file {filename}
 `<filename>` deve dizer qual o nome do arquivo, com extensão ".csv", contendo os casos de teste, este arquivo deve estar na pasta 'test_data' na raiz do projeto, o arquivo deve ser escrito em .csv.
 
 ### 1.4. Usando um Pré-processador customizado: 
-Caso seus dados precisem passar por um preprocessamento específico o usuário deverá utilizar essa cláusula, caso contrário não precisa utiliza-la. Caso opte por um preprocessador customizado, ele deverá também especificar o código do preprocessador a ser utilizado na pasta "my_modules" e importá-lo no arquivo "main.py"
+Caso seus dados precisem passar por um preprocessamento específico o usuário deverá utilizar essa cláusula, caso contrário não precisa utiliza-la. Caso opte por um preprocessador customizado, ele deverá também especificar o código do preprocessador a ser utilizado na pasta "my_modules" e importá-lo no arquivo "features/main.py"
 
 __Exemplo de uso do preprocessor na main.py__
 
@@ -118,6 +122,7 @@ from features.modules.my_modules.cii.cii_preprocessor import XGBoostPreProcessor
 
 @given('We use a custom preprocessor to transform the data')
 def use_custom_preprocessor(context):
+    ...
     # insert your preprocessor here
     context.preprocessor = XGBoostPreProcessor(context.model_dataConfigLoader.get_feature_names(),context.model_dataConfigLoader.get_target_names(),'ship_type_name',context.model_scaler,'AFRAMAX')
 ```
@@ -131,17 +136,18 @@ Given We use a custom preprocessor to transform the data
 ```
 
 ### 1.5. Usando um Pós-processador customizado: 
-Caso seus dados precisem passar por um pósprocessamento o usuário deverá utilizar essa cláusula, caso contrário não precisa utiliza-la. Caso opte por um pósprocessador customizado, ele deverá também especificar o código do pósprocessador a ser utilizado na pasta "my_modules" e importá-lo no arquivo "main.py"
+Caso seus dados precisem passar por um pósprocessamento o usuário deverá utilizar essa cláusula, caso contrário não precisa utiliza-la. Caso opte por um pósprocessador customizado, ele deverá também especificar o código do pósprocessador a ser utilizado na pasta "my_modules" e importá-lo no arquivo "features/main.py"
 
-__Exemplo de uso do preprocessor na main.py__
+__Exemplo de uso do postprocessor na main.py__
 
 ```python
-from features.modules.my_modules.cii.cii_preprocessor import XGBoostPreProcessor
+from features.modules.post_processor import CarbonPostProcessor
 
-@given('We use a custom preprocessor to transform the data')
-def use_custom_preprocessor(context):
+@given('We use a custom postprocessor to transform the data')
+def use_custom_postprocessor(context):
+    ...
     # insert your preprocessor here
-    context.preprocessor = XGBoostPreProcessor(context.model_dataConfigLoader.get_feature_names(),context.model_dataConfigLoader.get_target_names(),'ship_type_name',context.model_scaler,'AFRAMAX')
+    context.postprocessor = CarbonPostProcessor(context.model_dataConfigLoader.get_feature_names(),context.model_dataConfigLoader.get_target_names(),'ship_type_name','AFRAMAX')
 ```
 
 __Pré-requisitos:__ 1.1.; 1.2.; 1.3
@@ -172,15 +178,15 @@ When We process the data
 Após definir as clausulas referentes a definição do modelo, definição do arquivo de teste a ser utilizado e a execução dos testes, o usuário deve fornecer ao menos uma cláusula BDD que avalie os resultados desse teste. Essa cláusula compara o resultado de uma métrica do modelo a um limite esperado pelo usuário. Essas consultas demonstram os resultados das métricas do modelo de maneira auto-descritiva para o usuário final, evitando confusão. A métrica utilizada não deve ser declarada explicitamente, mas sim explicada no contexto do resultado. Essa abordagem pode ser aplicada tanto para métricas de precisão quanto de recall, que serão detalhadas nos tópicos abaixo.
 
 
-__Métrica descritiva de recall geral:__ Em vez de afirmar "o modelo atingiu 70 por cento de recall," a consulta diz, "o modelo identifica 70 por cento dos casos corretos de todas as classes."
+__Métrica descritiva de recall geral:__ Em vez de afirmar "o modelo atingiu 70 por cento de recall," a consulta diz,  "o modelo identifica corretamente positivos reais em 70 por cento dos casos."
 
 
 __cláusula_BDD__
 
 ```gherkin
-Then the model identifies {number} percent of the correct cases of all classes (with a {average_type})*
+Then the model correctly classifies real positives of all classes [with a {average_type}]* {number} percent of the time
 
-# * o trecho é opcional, se assume por padrão o valor 'macro average' para 'average_type'
+# * o trecho é opcional, se assume por padrão o valor 'macro average' para 'average_type'. ao inclui-lo não use os '[]'
 ```
 
 `<number>` - valor numérico entre 0 e 100 que indica o percentual que a métrica de recall deve atingir.
@@ -192,12 +198,12 @@ Then the model identifies {number} percent of the correct cases of all classes (
 
 &nbsp;&nbsp;&nbsp;&nbsp;`weighted average` - leva em consideração a proporção que cada resultados da classificação tem nos resultados dos testes.
 
-__Métrica descritiva de recall de uma classe específica:__ Em vez de afirmar "o modelo atingiu 70 porcento de recall em 'tem diabetes'," a consulta deve dizer, "o modelo identifica 70 por cento dos casos corretos de 'tem diabetes'.".
+__Métrica descritiva de recall de uma classe específica:__ Em vez de afirmar "o modelo atingiu 70 porcento de recall na classe 'setosa'" a consulta deve dizer, "o modelo identifica corretamente positivos reais em 70 por cento dos casos da classe 'setosa'".
 
 __cláusula_BDD__
 
 ```gherkin
-Then the model identifies {number} percent of the correct cases of class '{class}'
+Then the model correctly classifies real positives of class '{class}' {number} percent of the time.
 ```
 
 `<number>` - valor numérico entre 0 e 100 que indica o percentual que a métrica de recall deve atingir.
@@ -207,14 +213,14 @@ Then the model identifies {number} percent of the correct cases of class '{class
 
 
 
-__Métrica descritiva de precisão geral:__ Similar ao caso anterior, a precisão pode ser apresentada de forma descritiva. Em vez de afirmar "o modelo atingiu 80 por cento de precisão em todas as classes," a consulta deve dizer, "o modelo atribui a classificação de todas as classes corretamente 80 porcento do tempo."
+__Métrica descritiva de precisão geral:__ Similar ao caso anterior, a precisão pode ser apresentada de forma descritiva. Em vez de afirmar "o modelo atingiu 80 por cento de precisão" a consulta deve dizer, "o modelo identifica corretamente positivos previstos em 80 por cento dos casos".
 
 __cláusula_BDD__
 
 ```gherkin
-Then the model correctly classifies positives of all classes (with a {average_type})*  {number} percent of the time
+Then the model correctly classifies predicted positives of all classes [with a {average_type}]* {number} percent of the time
 
-# * o trecho é opcional, se assume por padrão o valor 'macro average' para 'average_type'
+# * o trecho é opcional, se assume por padrão o valor 'macro average' para 'average_type'. ao inclui-lo não use os '[]'
 ```
 
 `<number>` - valor numérico entre 0 e 100 que indica o percentual que a métrica de precisão deve atingir.
@@ -226,7 +232,7 @@ Then the model correctly classifies positives of all classes (with a {average_ty
 &nbsp;&nbsp;&nbsp;&nbsp;`weighted average` - leva em consideração a proporção que cada resultados da classificação tem nos resultados dos testes.
 
 
-__Métrica descritiva de precisão de uma classe específica:__ Em vez de afirmar "o modelo atingiu 80 por cento de precisão em 'tem diabetes'," a consulta deve dizer, "o modelo atribui a classificação da classe 'tem diabetes' corretamente 80 por cento do tempo."
+__Métrica descritiva de precisão de uma classe específica:__ Em vez de afirmar "o modelo atingiu 80 por cento de precisão na classe 'setosa'" a consulta deve dizer, "o modelo identifica corretamente positivos previstos em 80 por cento dos casos da classe 'setosa'".
 
 __cláusula_BDD__
 
@@ -239,36 +245,15 @@ Then the model correctly classifies positives of class '{class}' {number} percen
 
 `<class>` -  qual o resultado especifico de classificação que deseja medir o recall. Se o seu dataset tem como possíveis resultados de classificação 'setosa' ou 'virginica' alguma delas deverá ser o valor de 'class'. Caso seu dataset possua como outputs somente os valores '0' e '1', escreva os valores na clausula como 'False' ou 'True' respectivamente.
 
-__Métrica descritiva de acurácia geral:__ Similar ao caso anterior, a precisão pode ser apresentada de forma descritiva. Em vez de afirmar "o modelo atingiu 80 por cento de acurácia em todas as classes," a consulta deve dizer, "o modelo atribui a classificação de todas as classes 80 por cento do tempo."
+__Métrica descritiva de acurácia geral:__ Similar ao caso anterior, a precisão pode ser apresentada de forma descritiva. Em vez de afirmar "o modelo atingiu 80 por cento de acurácia em todas as classes," a consulta deve dizer, "o modelo atribui corretamente a classificação de todas as classes 80 por cento do tempo."
 
 __cláusula_BDD__
 
 ```gherkin
-Then the model correctly classifies of all classes with a {average_type} {number} percent of the time
+Then the model correctly classifies all classes {number} percent of the time
 ```
 
 `<number>` - valor numérico entre 0 e 100 que indica o percentual que a métrica de acurácia deve atingir.
-
-`<average_type>` -  deve dizer qual o tipo de média a ser usada no calculo da métrica. As opções são a seguir:
-
-&nbsp;&nbsp;&nbsp;&nbsp;`macro average` - não leva em consideração a proporção que cada resultado da classificação tem nos resultados dos testes.
-
-&nbsp;&nbsp;&nbsp;&nbsp;`weighted average` - leva em consideração a proporção que cada resultados da classificação tem nos resultados dos testes.
-
-
-__Métrica descritiva de acurácia de uma classe específica:__ Em vez de afirmar "o modelo atingiu 80 por cento de acurácia em 'tem diabetes'," a consulta deve dizer, "o modelo atribui a classificação da classe 'tem diabetes' corretamente 80 por cento do tempo."
-
-__cláusula_BDD__
-
-```gherkin
-Then the model classifies the class '{class}' correctly {number} percent of the time
-```
-
-`<number>` - valor numérico entre 0 e 100 que indica o percentual que a métrica de acurácia deve atingir.
-
-
-`<class>` -  qual o resultado especifico de classificação que deseja medir o recall. Se o seu dataset tem como possíveis resultados de classificação 'setosa' ou 'virginica' alguma delas deverá ser o valor de 'class'. Caso seu dataset possua como outputs somente os valores '0' e '1', escreva os valores na clausula como 'False' ou 'True' respectivamente.
-
 
 ### Métricas explícitas de desempenho de modelos de classificação:
 Com os resultados dos testes de funcionalidades anteriores, o usuário deve fornecer ao sistema uma consulta sobre os resultados desse teste. Essa consulta deve ser feita na forma de uma declaração BDD que compare o resultado de uma métrica do modelo a um limite esperado pelo usuário. Diferente das métricas mencionadas em funcionalidades anteriores, muitas métricas, como o f1-score, não podem ser diretamente traduzidas de forma concisa para o usuário final e, portanto, só podem ser inferidas diretamente pelo framework. Uma consulta como "o modelo atingiu 0,8 de f1-score" não explica o que é a métrica, mas permite que todas as métricas sejam exibidas, independentemente de sua complexidade. Esta é a forma padrão de mostrar a maioria das métricas de classificação e regressão e estará disponível para todas as métricas cobertas pelo framework.
@@ -278,9 +263,9 @@ __Métrica explicita geral:__
 __cláusula_BDD__
 
 ```gherkin
-Then the model will reach {threshold} percent {metric} (on a {average_type})*
+Then the model will reach a value of {threshold} on the metric {metric} [on a {average_type}]*
 
-# * o trecho é opcional, se assume por padrão o valor 'macro average' para 'average_type'
+# * o trecho é opcional, se assume por padrão o valor 'macro average' para 'average_type'. ao inclui-lo não use os '[]'
 ```
 
 `<threshold>` - valor numérico que indica o valor que a métrica deve atingir, para cada métrica abaixo está descrito o valor aceitado para ela.
@@ -295,7 +280,7 @@ Then the model will reach {threshold} percent {metric} (on a {average_type})*
 
 &nbsp;&nbsp;&nbsp;&nbsp;`f1_score` - aceita valores entre 0 e 100 (percentuais).
 
-`<average_type>` -  deve dizer qual o tipo de média a ser usada no calculo da métrica. As opções são a seguir:
+`<average_type>` -  deve dizer qual o tipo de média a ser usada no calculo da métrica. Essa opção não funciona para a métrica 'accuracy'. As opções são a seguir:
 
 &nbsp;&nbsp;&nbsp;&nbsp;`macro average` - não leva em consideração a proporção que cada resultado da classificação tem nos resultados dos testes.
 
@@ -307,20 +292,20 @@ __cláusula_BDD__
 
 
 ```gherkin
-Then the model will reach {threshold} percent {metric} on class '{class}'
+Then the model will reach a value of {threshold} on the metric {metric} on class '{class}'
 ```
 
 `<threshold>` - valor numérico que indica o valor que a métrica deve atingir.
 
 `<metric>` - métrica que o usuário deseja medir.
 
-&nbsp;&nbsp;&nbsp;&nbsp;`recall`
+&nbsp;&nbsp;&nbsp;&nbsp;`recall` - aceita valores entre 0 e 100 (percentuais).
 
-&nbsp;&nbsp;&nbsp;&nbsp;`precision`
+&nbsp;&nbsp;&nbsp;&nbsp;`precision` - aceita valores entre 0 e 100 (percentuais).
 
-&nbsp;&nbsp;&nbsp;&nbsp;`accuracy`
+&nbsp;&nbsp;&nbsp;&nbsp;`accuracy` - aceita valores entre 0 e 100 (percentuais).
 
-&nbsp;&nbsp;&nbsp;&nbsp;`f1_score`
+&nbsp;&nbsp;&nbsp;&nbsp;`f1_score` - aceita valores entre 0 e 100 (percentuais).
 
 `<class>` -  qual o resultado especifico de classificação que deseja medir o recall. Se o seu dataset tem como possíveis resultados de classificação 'setosa' ou 'virginica' alguma delas deverá ser o valor de 'class'. Caso seu dataset possua como outputs somente os valores '0' e '1', escreva os valores na clausula como 'False' ou 'True' respectivamente.
 
@@ -331,10 +316,17 @@ A mesma ideia que a definição acima mas para modelos de regressão.
 __cláusula_BDD__
 
 ```gherkin
-Then the model will reach {metric} above {number}
+Then the model will reach {metric} below {number}
 ```
 
-`<number>` - valor numérico que indica o percentual que a métrica deve atingir.
+`<number>` - valor numérico que indica o valor que a métrica deve atingir.
+
+`<reference>` - palavra que sinaliza qual a orientação que a métrica deve ser avaliada
+
+&nbsp;&nbsp;&nbsp;&nbsp;`above` - Sinaliza que a métrica deve atingir um valor acima do valor estabelecido. válido somente para a metrica `R2 Score`
+
+&nbsp;&nbsp;&nbsp;&nbsp;`below` - Sinaliza que a métrica deve atingir um valor abaixo do valor estabelecido. válido para as demais métricas.
+
 
 `<metric>` - métrica que o usuário deseja medir.
 

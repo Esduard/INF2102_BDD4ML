@@ -104,9 +104,8 @@ def use_custom_preprocessor(context):
         raise AssertionError(f"Custom preprocessor has already been defined. 'Given' and 'When' clauses cannot be reused")
 
     # insert your preprocessor here
-    context.preprocessor = XGBoostPreProcessor(context.model_dataConfigLoader.get_feature_names(),context.model_dataConfigLoader.get_target_names(),'ship_type_name',context.model_scaler,'AFRAMAX')
 
-    # Mark the identifier as used
+    # END
     context.used_identifiers.add('define_preprocessor')
 
 @given('We use a custom postprocessor to transform the data')
@@ -119,9 +118,8 @@ def use_custom_postprocessor(context):
         raise AssertionError(f"Custom postprocessor has already been defined. 'Given' and 'When' clauses cannot be reused")
 
     # insert your postprocessor here
-    context.postprocessor = CarbonPostProcessor(context.model_dataConfigLoader.get_feature_names(),context.model_dataConfigLoader.get_target_names(),'ship_type_name','AFRAMAX')
 
-    # Mark the identifier as used
+    # END
     context.used_identifiers.add('define_postprocessor')
 
 
