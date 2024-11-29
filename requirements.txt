@@ -4,14 +4,14 @@ comm==0.2.2
 contourpy==1.2.0
 cycler==0.12.1
 debugpy==1.8.1
-decorator==5.1.1
+# decorator==5.1.1  # Potential conflict with moviepy
 executing==2.0.1
 fonttools==4.50.0
-#ipykernel==6.29.3
-#ipython==8.22.2
+# ipykernel==x.x.x
+# ipython==x.x.x
 jedi==0.19.1
 joblib==1.4.2
-jupyter_client==8.6.1
+jupyter_client==8.6.1  # Double-check compatibility
 jupyter_core==5.7.2
 kiwisolver==1.4.5
 matplotlib==3.8.3
@@ -19,7 +19,7 @@ matplotlib-inline==0.1.6
 nest-asyncio==1.6.0
 numpy==1.26.4
 packaging==24.0
-pandas==2.2.1
+pandas==2.2.2  # Align with Colab's pre-installed version
 parse==1.20.1
 parse-type==0.6.2
 parso==0.8.3
@@ -27,7 +27,7 @@ pexpect==4.9.0
 pillow==10.2.0
 platformdirs==4.2.0
 plotly==5.20.0
-#prompt-toolkit==3.0.43
+# prompt-toolkit==x.x.x
 psutil==5.9.8
 ptvsd==4.3.2
 ptyprocess==0.7.0
@@ -36,7 +36,7 @@ Pygments==2.17.2
 pyparsing==3.1.2
 python-dateutil==2.9.0.post0
 pytz==2024.1
-pyzmq==25.1.2
+# pyzmq==x.x.x  # Check compatibility
 scikit-learn==1.4.2
 scipy==1.13.0
 seaborn==0.13.2
@@ -45,14 +45,8 @@ stack-data==0.6.3
 tabulate==0.9.0
 tenacity==8.2.3
 threadpoolctl==3.5.0
-#tornado==6.4
+# tornado==x.x.x
 traitlets==5.14.2
 tzdata==2024.1
 wcwidth==0.2.13
 xgboost==2.0.2
-
-# comented these because of colab warnings
-# ipython==x.x.x
-# ipykernel==x.x.x
-# tornado==x.x.x
-# prompt-toolkit==x.x.x
