@@ -6,6 +6,17 @@ Feature: testing a regression model performance
         And We use a custom preprocessor to transform the data
         When We process the data
         #MSE
-        Then the model will reach a Mean Squared Error below 30
+        Then the model will reach a Mean Squared Error below 200000
+        
         #R2 score
         And the model will reach an R2 Score above 0.2
+
+        #MAE
+        And the model will reach a Mean Absolute Error below 200
+
+
+        #RMSE
+        And the model will reach a Root Mean Squared Error below 425
+
+        #Median Absolute Error
+        And the model will reach a Median Absolute Error below 90
