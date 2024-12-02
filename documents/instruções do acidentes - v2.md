@@ -1,6 +1,6 @@
 # Projeto Prevenção de Acidentes - Versão 1
 
-Visualize esse documento usando o comando 'Cntrl + Shift + V'
+Visualize esse documento no VSCode usando o comando 'Cntrl + Shift + V'
 
 ## Descrição Do Projeto
 
@@ -11,9 +11,14 @@ Uma equipe de cientistas de dados desenvolveu um modelo de classificação que e
 
 ## Objetivo
 
-Com o modelo pronto e os dados de teste preparados você deve utilizar o framework BDD4ML para rodar os testes de machine learning. Utilize da documentação presente no arquivo 'manual_BDD.md' e das referências na pasta 'old_features' para criar os arquivos de cláusulas. Crie os arquivos na pasta 'features' com a extensão ".feature"
+Com o modelo pronto e os dados de teste preparados você deve utilizar o framework BDD4ML para rodar os testes de machine learning. Se trata de um framework com clausulças pré associadas a código, basta achar as clausulas que necessita na documentação e aplicalas em um arquivo de cláusulas.
 
-Utilize o modelo 'acidentes' localizado na pasta 'estimators' e o arquivo de testes 'dataset_acidentes.csv' localizado na pasta 'test_data'
+Utilize da documentação presente no arquivo 'manual_BDD.md' e das referências na pasta 'old_features' para criar os arquivos de cláusulas. Crie os arquivos na pasta 'features' com a extensão ".feature"
+
+Utilize: 
+ - O modelo `acidentes_model.pkl` localizado na pasta `estimators\`, atente-se a forma que ele deve ser chamado na cláusula. 
+ 
+ - O arquivo de testes `dataset_acidentes.csv` localizado na pasta `test_data\`
 
 Com seu conhecimento em aprendizado de máquina, gere cláusulas BDD que atendam aos seguintes critérios:
 
@@ -32,3 +37,8 @@ Com seu conhecimento em aprendizado de máquina, gere cláusulas BDD que atendam
 ### Requisitos de Acurácia
 
 - Meça se a métrica de acurácia alcança 10 porcento em todos os casos
+
+
+## Execução
+
+Após gerar as cláusulas, rode uma celula escrito `!behave` caso esteja usando o google colab ou rode o comando `behave` no terminal.

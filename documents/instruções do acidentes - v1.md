@@ -1,6 +1,6 @@
 # Projeto Prevenção de Acidentes - Versão 1
 
-Visualize esse documento usando o comando 'Cntrl + Shift + V'
+Visualize esse documento no VSCode usando o comando 'Cntrl + Shift + V'
 
 ## Descrição Do Projeto
 

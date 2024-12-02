@@ -1,6 +1,6 @@
 # Projeto Carbono  - Versão 2
 
-Visualize esse documento usando o comando 'Cntrl + Shift + V'
+Visualize esse documento no VSCode usando o comando 'Cntrl + Shift + V'
 
 ## Descrição Do Projeto
 
@@ -38,9 +38,14 @@ Após a estimativa de valor exato da quantidade de CO2. O algoritimo passa por u
 
 ## Objetivo
 
-Com o modelo pronto e os dados de teste preparados você deve utilizar o framework BDD4ML para rodar os testes de machine learning. Utilize da documentação presente no arquivo 'manual_BDD.md' e das referências na pasta 'old_features' para criar os arquivos de cláusulas. Crie os arquivos na pasta 'features' com a extensão ".feature"
+Com o modelo pronto e os dados de teste preparados você deve utilizar o framework BDD4ML para rodar os testes de machine learning. Se trata de um framework com clausulças pré associadas a código, basta achar as clausulas que necessita na documentação e aplicalas em um arquivo de cláusulas.
 
-Utilize o modelo 'aframax_2023' localizado na pasta 'estimators' e o arquivo de testes 'carbon_aframax_2023' localizado na pasta 'test_data'
+Utilize da documentação presente no arquivo 'manual_BDD.md' e das referências na pasta 'old_features' para criar os arquivos de cláusulas. Crie os arquivos na pasta 'features' com a extensão ".feature"
+
+Utilize: 
+ - O modelo `aframax_2023_model.pkl` localizado na pasta `estimators\`, atente-se a forma que ele deve ser chamado na cláusula. 
+ 
+ - O arquivo de testes `carbon_aframax_2023.csv` localizado na pasta `test_data`
 
 Utilize também os modulos de pré e pós processamento conforme instruido nos exemplos da documentação.
 
@@ -63,3 +68,8 @@ Com seu conhecimento em aprendizado de máquina, gere cláusulas BDD que atendam
 ### Requisitos de Acurácia
 
 - Meça se a métrica de acurácia alcança 50 porcento dos casos
+
+
+## Execução
+
+Após gerar as cláusulas, rode uma celula escrito `!behave` caso esteja usando o google colab ou rode o comando `behave` no terminal.
