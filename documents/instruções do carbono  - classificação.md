@@ -1,4 +1,4 @@
-# Projeto Carbono  - Versão 2
+# Projeto Carbono - CLASSIFICAÇÃO
 
 Visualize esse documento no VSCode usando o comando 'Cntrl + Shift + V'
 
@@ -35,18 +35,23 @@ Após a estimativa de valor exato da quantidade de CO2. O algoritimo passa por u
 
 ## Transformação de Regressão para Classificação
 
+
 ## Objetivo
 
-Com o modelo pronto e os dados de teste preparados você deve utilizar o framework BDD4ML para rodar os testes de machine learning. Se trata de um framework com clausulças pré associadas a código, basta achar as clausulas que necessita na documentação e aplicalas em um arquivo de cláusulas.
+Com o modelo pronto e os dados de teste preparados você deve utilizar o framework BDD4ML para rodar os testes de machine learning. Se trata de um framework com clausulças pré associadas a código, basta achar as clausulas que necessita na documentação e aplica-las em um arquivo de cláusulas.
 
-Utilize da documentação presente no arquivo `Manual_BDD4ML.md` e das referências na pasta `old_features` para prencher o arquivo de cláusulas `regression base.feature` na pasta `features`
+Utilize da documentação presente no arquivo `Manual_BDD4ML.md` e das referências na pasta `old_features` para prencher o arquivo de cláusulas `classification base.feature` na pasta `features`
 
-Utilize: 
+### Recursos Dados:
+Utilize:
+
  - O modelo `aframax_2023_model.pkl` localizado na pasta `estimators\`, atente-se a forma que ele deve ser chamado na cláusula. 
  
  - O arquivo de testes `carbon_aframax_2023.csv` localizado na pasta `test_data`
 
-Utilize também os modulos de pré e pós processamento conforme instruido nos exemplos da documentação.
+ - Utilize também os modulos de pré e pós processamento conforme instruido nos exemplos da documentação.
+
+Todos os arquivos já estão configurados para serem utilizados, basta preencher o arquivo `.feature` com os elementos corretos.
 
 Com seu conhecimento em aprendizado de máquina, gere cláusulas BDD que atendam aos seguintes critérios:
 

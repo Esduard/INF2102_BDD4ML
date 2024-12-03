@@ -11,8 +11,7 @@
 ![Google Colab](images/colab.png)
 
 
-### Com um novo notebook, copie os comandos abaixo para uma celula e execute-os:
-
+### Com um novo notebook no colab, copie os comandos abaixo para uma celula e execute-os:
 
 ```
 !git clone https://github.com/Esduard/INF2102_BDD4ML.git
@@ -24,21 +23,19 @@
 
 Formulário de caracterização: https://forms.gle/PPpoMjyequmCPNkK8
 
-## Slides sobre classificação
+## Atividade 'carbono - regressão'
 
-Leia os slides no arquivo 'classificação.pdf'
+Realize A Atividade 'instruções do carbono  - regressão' na pasta 'documents'
 
-## Realize sua Atividade V1
+## Atividade 'carbono - classificação'
 
-Utilize da seção 'O que são as cláusulas BDD' da documentação 'manual_BDD.md' para referência
-
-## Realize sua Atividade V2
-
-Utilize das próximas seções da documentação 'manual_BDD.md' para referência
+Realize A Atividade 'instruções do carbono  - classificação' na pasta 'documents'
 
 ## Finalize com o questionário final
 
-Ao fim da atividade: https://forms.gle/g1YhNbhsoaUYS7Rc6
+Ao fim da atividade preencha o formulário: https://forms.gle/7bpTtPMGMChWktFx6
+
+FInalize enviando os arquivos gerados para o email: eduardomotta1701@gmail.com
 
 
 # Instruções De Instalação Local

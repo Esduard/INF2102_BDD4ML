@@ -13,7 +13,7 @@ Uma equipe de cientistas de dados desenvolveu um modelo de classificação que e
 
 Com o modelo pronto e os dados de teste preparados você deve utilizar o framework BDD4ML para rodar os testes de machine learning. Se trata de um framework com clausulças pré associadas a código, basta achar as clausulas que necessita na documentação e aplicalas em um arquivo de cláusulas.
 
-Utilize da documentação presente no arquivo 'manual_BDD.md' e das referências na pasta 'old_features' para criar os arquivos de cláusulas. Crie os arquivos na pasta 'features' com a extensão ".feature"
+Utilize da documentação presente no arquivo 'Manual_BDD4ML.md' e das referências na pasta 'old_features' para criar os arquivos de cláusulas. Crie os arquivos na pasta 'features' com a extensão ".feature"
 
 Utilize: 
  - O modelo `acidentes_model.pkl` localizado na pasta `estimators\`, atente-se a forma que ele deve ser chamado na cláusula. 
