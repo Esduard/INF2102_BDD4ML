@@ -78,11 +78,11 @@ Além disso, o usuário deverá oferecer um arquivo de configuração json do mo
 <b><span style="color:violet;">cláusula_BDD</span> </b>
 
 ```gherkin
-Given We obtain a model from the file {model_filename}
+Given We obtain a model from the file {model_prefix}
 ```
 
 
-`<model_filename>` - Deve dizer qual o nome do arquivo do modelo sem o sufixo "_model.pkl", este arquivo deve estar na pasta 'estimators', essa pasta se localiza na raiz do projeto. Esse nome também informa qual o scaler e o arquivo de configuração ".json", portanto todos devem ter o mesmo nome excluindo a extensão.
+`<model_prefix>` - Deve dizer qual o nome do arquivo do modelo sem o sufixo "_model.pkl", este arquivo deve estar na pasta 'estimators', essa pasta se localiza na raiz do projeto. Esse nome também informa qual o scaler e o arquivo de configuração ".json", portanto todos devem ter o mesmo nome excluindo a extensão.
 
 <h3 style="color:violet;">1.2. Definição do tipo de problema:</h2>  
 Com o modelo carregado em memória pela clausula anterior. Devemos definir como vamos avaliar o problema. Ele pode ser avaliado tanto como um problema de classificação como de regressão e isso vai depender do tipo do modelo e do poś processamento aplicado.
@@ -159,7 +159,7 @@ __Pré-requisitos:__ 1.1.; 1.2.; 1.3
 <b><span style="color:violet;">cláusula_BDD</span> </b>
 
 ```gherkin
-Given We use a custom preprocessor to transform the data
+Given We use a custom postprocessor to transform the data
 ```
 
 <h2 style="color:lime;">2. Cláusulas BDD - When</h2>  
@@ -329,7 +329,7 @@ A mesma ideia que a definição acima mas para modelos de regressão.
 <b><span style="color:orange;">cláusula_BDD</span> </b>
 
 ```gherkin
-Then the model will reach {metric} below {number}
+Then the model will reach {metric} {reference} {number}
 ```
 
 `<number>` - valor numérico que indica o valor que a métrica deve atingir.

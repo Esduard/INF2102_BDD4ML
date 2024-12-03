@@ -23,17 +23,23 @@
 
 Formulário de caracterização: https://forms.gle/PPpoMjyequmCPNkK8
 
-## Atividade 'carbono - regressão'
+## 3 Explicando O framework
+
+Acompanhe os slides no diretório 'slides/Explicando_BDD4ML.pdf
+
+## 4 Atividade 'carbono - regressão'
 
 Realize A Atividade 'instruções do carbono  - regressão' na pasta 'documents'
 
-## Atividade 'carbono - classificação'
+## 4 Atividade 'carbono - classificação'
 
 Realize A Atividade 'instruções do carbono  - classificação' na pasta 'documents'
 
-## Finalize com o questionário final
+## 5 Questionário final
 
 Ao fim da atividade preencha o formulário: https://forms.gle/7bpTtPMGMChWktFx6
+
+## 6 Finalização
 
 FInalize enviando os arquivos gerados para o email: eduardomotta1701@gmail.com
 
