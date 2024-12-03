@@ -247,7 +247,7 @@ Em vez de afirmar "o modelo atingiu 80 por cento de precisão na classe 'setosa'
 <b><span style="color:orange;">cláusula_BDD</span> </b>
 
 ```gherkin
-Then the model correctly classifies positives of class '{class}' {number} percent of the time
+Then the model correctly classifies predicted positives of class '{class}' {number} percent of the time
 ```
 
 `<number>` - valor numérico entre 0 e 100 que indica o percentual que a métrica de precisão deve atingir.
